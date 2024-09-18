@@ -9,7 +9,7 @@ import FormRow from "../../ui/FormRow";
 import useCreateCabin from "./useCreateCabin";
 import useEditCabins from "./useEditCabins";
 
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToEdit = {}, closeModal }) {
   const { id: editId, ...editValues } = cabinToEdit;
   const { isCreating, createCabin } = useCreateCabin();
   const { isEditting, editCabin } = useEditCabins();
@@ -32,7 +32,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
       createCabin(
         { ...data, image: image },
         {
-          onSuccess: () => reset(),
+          onSuccess: () => {
+            reset();
+            closeModal();
+          },
         }
       );
     }
@@ -75,9 +78,6 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           defaultValue={0}
           {...register("discount", {
             required: "This is a required field",
-            validate: (value) =>
-              value <= getValues().regularPrice ||
-              "Discount should be less than the Regular Price",
           })}
         />
       </FormRow>
@@ -104,7 +104,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="reset">
+        <Button variation="secondary" type="reset" onClick={closeModal}>
           Cancel
         </Button>
         <Button disabled={isCreating}>

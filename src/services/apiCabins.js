@@ -1,5 +1,6 @@
 import supabase, { supabaseUrl } from "./supabase";
 
+//Getting Cabins Data
 export async function getCabins() {
   const { data, error } = await supabase.from("cabins").select("*");
 
@@ -10,7 +11,9 @@ export async function getCabins() {
 
   return data;
 }
+///////////////////////////////////////////////////////////////////
 
+//Creating Cabins //////////////////////////////////////////
 export async function createEditCabin(newCabin, id) {
   const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl);
   const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll(
@@ -27,6 +30,8 @@ export async function createEditCabin(newCabin, id) {
   if (id) query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
 
   const { data, error } = await query.select().single();
+
+  if (hasImagePath) return;
   if (error) {
     console.error(error);
     throw new Error("Sorry We Were Not Able to Add Your Cabin");
@@ -46,6 +51,10 @@ export async function createEditCabin(newCabin, id) {
   return data;
 }
 
+///////////////////////********************************///////////////////////////////////////
+
+/////////////////////////////Delete Cabins ///////////////////////////////////////
+
 export async function deleteCabins(id) {
   const { data, error } = await supabase.from("cabins").delete().eq("id", id);
 
@@ -56,3 +65,7 @@ export async function deleteCabins(id) {
 
   return data;
 }
+
+///////////////////////////////*************************************///////////////////////////
+
+//////////////////////////////////Update Cabins ///////////////////////////////

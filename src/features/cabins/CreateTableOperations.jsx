@@ -6,7 +6,7 @@ function CreateTableOperations() {
   return (
     <TableOperations>
       <Filter
-        filterfeild={"discount"}
+        filterfield={"discount"}
         filterBy={[
           { value: "all", label: "All" },
           { value: "No-Discount", label: "No Discount" },

@@ -35,11 +35,12 @@ const FilterButton = styled.button`
   }
 `;
 
-function Filter({ filterfeild, filterBy }) {
+function Filter({ filterField, filterBy }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentFilter = searchParams.get(filterfeild) || filterBy.at(0).value;
+  const currentFilter = searchParams.get(filterField) || filterBy.at(0).value;
+
   function handleClick(value) {
-    searchParams.set(filterfeild, value);
+    searchParams.set(filterField, value);
 
     setSearchParams(searchParams);
   }
@@ -47,8 +48,10 @@ function Filter({ filterfeild, filterBy }) {
     <StyledFilter>
       {filterBy.map((filter) => (
         <FilterButton
+          key={filter.value}
           onClick={() => handleClick(filter.value)}
-          active={filter.value === currentFilter}
+          active={filter.value === currentFilter ? "true" : undefined}
+          disabled={filter.value === currentFilter}
         >
           {filter.label}
         </FilterButton>

@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import { useRecentBookings } from "./useRecentBookings";
+import { useRecentStays } from "./useRecentStays";
+import Stats from "./Stats";
+import useCabins from "../cabins/useCabins";
+import SalesChart from "./SalesChart";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -6,3 +11,30 @@ const StyledDashboardLayout = styled.div`
   grid-template-rows: auto 34rem auto;
   gap: 2.4rem;
 `;
+
+function DashboardLayout() {
+  const { isLoading, bookings } = useRecentBookings();
+  const {
+    isLoading: isLoading2,
+    stays: confirmedStays,
+    numDays,
+  } = useRecentStays();
+
+  const { cabins, isLoading3 } = useCabins();
+  if (isLoading || isLoading2) return;
+  return (
+    <StyledDashboardLayout>
+      <Stats
+        bookings={bookings}
+        confirmedStays={confirmedStays}
+        numDays={numDays}
+        cabinCount={cabins.length}
+      />
+      <div>Today's Activities</div>
+      <div>Chart Stay Duration</div>
+      <SalesChart />
+    </StyledDashboardLayout>
+  );
+}
+
+export default DashboardLayout;

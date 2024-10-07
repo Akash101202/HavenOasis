@@ -1,4 +1,4 @@
-#HavenOasis
+# HavenOasis
 
 Overview
 HavenOasis is a modern full-stack application that provides users with a seamless experience in managing, discovering, and reserving safe and comfortable stays. Built using React for both client and server-side rendering, Supabase as the backend database API, and Styled Components for an elegant UI, this project demonstrates the application of a complete MERN stack architecture with modern tools and practices.
